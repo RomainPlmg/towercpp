@@ -1,8 +1,10 @@
 #pragma once
 
+#include <atomic>
 #include <nlohmann/json.hpp>
 
 #include "server.hpp"
+
 
 namespace towercpp {
 

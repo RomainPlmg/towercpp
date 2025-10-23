@@ -1,6 +1,7 @@
 #pragma once
 
 #include <nlohmann/json.hpp>
+#include <optional>
 
 #include "reply.hpp"
 
@@ -17,8 +18,8 @@ class Binder {
    public:
     explicit Binder(Server& server);
 
-    LSPCallMethod<nlohmann::json> getCall(const std::string& method);
-    LSPNotificationMethod<nlohmann::json> getNotification(
+    std::optional<LSPCallMethod<nlohmann::json>> getCall(const std::string& method);
+    std::optional<LSPNotificationMethod<nlohmann::json>> getNotification(
         const std::string& method);
 
     template <typename Obj, typename Params>

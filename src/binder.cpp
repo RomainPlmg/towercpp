@@ -1,29 +1,19 @@
-#include "binder.hpp"
-
-#include "logger.hpp"
-#include "reply.hpp"
+#include "towercpp/binder.hpp"
 
 namespace towercpp {
 
 Binder::Binder(Server& server) : server_(server) {}
 
-LSPCallMethod<nlohmann::json> Binder::getCall(const std::string& method) {
-    const auto it = call_handlers.find(method);
-    if (it == call_handlers.end()) return {};
-
-    return [f = it->second](const nlohmann::json& params, Reply reply) {
-        f(nlohmann::json(params), std::move(reply));
-    };
+std::optional<LSPCallMethod<nlohmann::json>> Binder::getCall(
+    const std::string& method) {
+    if (!call_handlers.contains(method)) return std::nullopt;
+    return call_handlers[method];
 }
 
-LSPNotificationMethod<nlohmann::json> Binder::getNotification(
+std::optional<LSPNotificationMethod<nlohmann::json>> Binder::getNotification(
     const std::string& method) {
-    const auto it = notif_handlers.find(method);
-    if (it == notif_handlers.end()) return {};
-
-    return [f = it->second](const nlohmann::json& params) {
-        f(nlohmann::json(params));
-    };
+    if (!notif_handlers.contains(method)) return std::nullopt;
+    return notif_handlers[method];
 }
 
 }  // namespace towercpp

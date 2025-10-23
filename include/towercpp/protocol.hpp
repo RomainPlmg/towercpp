@@ -2,13 +2,14 @@
 
 #include <nlohmann/json.hpp>
 
-#include "protocol.hpp"
-
 namespace towercpp {
 
 struct NoParams {};
-inline void from_json(const nlohmann::json& j, NoParams& p) { p = {}; }
-inline void to_json(nlohmann::json& j, NoParams& p) { j = {}; }
+inline void from_json([[maybe_unused]] const nlohmann::json& j,
+                      [[maybe_unused]] NoParams& p) {
+    p = {};
+}
+inline void to_json(nlohmann::json& j, [[maybe_unused]] NoParams& p) { j = {}; }
 
 /**
  * The LSP any type

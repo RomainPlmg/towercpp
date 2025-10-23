@@ -1,7 +1,10 @@
-#include "server.hpp"
+#include "towercpp/server.hpp"
 
-#include "binder.hpp"
-#include "logger.hpp"
+#include <iostream>
+
+#include "towercpp/binder.hpp"
+#include "towercpp/logger.hpp"
+
 
 #ifdef _WIN32
 #include <fcntl.h>
